@@ -1,0 +1,5 @@
+spring:
+  message: Este es el ambiente de homologacion
+
+server:
+  port: 8081
