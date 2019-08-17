@@ -16,8 +16,7 @@ Para poder compilarlo de Jekins usamos el comando
 mvn clean install -DskipTests=true
 ```
 
-
-Para poder correr el JAR usamos
+Para poder correr el proyecto compilado
 ```
 mvn springboot:run -Dspring-boot.run.profiles=desa
 ```
