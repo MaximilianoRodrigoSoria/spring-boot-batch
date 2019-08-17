@@ -8,6 +8,13 @@ Este es un proyecto Spring-Boot-Batch el cual procesa un CVS a una Base de Datos
   - Base de Datos en memoria
   - Perfiles
 
+Para poder compilarlo de Jekins usamos el comando
+
+```
+mvn clean install -DskipTests=true
+```
+
+
 Para poder correr el JAR usamos
 ```
 mvn springboot:run -Dspring-boot.run.profiles=desa
