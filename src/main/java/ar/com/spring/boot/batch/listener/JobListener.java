@@ -20,8 +20,8 @@ import ar.com.spring.boot.batch.model.Persona;
 public class JobListener extends JobExecutionListenerSupport {
 
 	private static final Logger LOG = LoggerFactory.getLogger(JobListener.class);
-	@Value("${spring.message}")
-	private String message;
+		@Value("${ar.com}")
+		private String name;
 	private JdbcTemplate jdbcTemplate;
 
 	@Autowired
@@ -39,8 +39,8 @@ public class JobListener extends JobExecutionListenerSupport {
 					.query("SELECT nombre, apellido, telefono FROM persona",
 							(rs, row) -> new Persona(rs.getString(1), rs.getString(2), rs.getString(3)))
 					.forEach(persona -> LOG.info("Registro < " + persona + " >"));
-			
-			LOG.info(message);
+			LOG.info(name);
+
 		}
 	}
 
