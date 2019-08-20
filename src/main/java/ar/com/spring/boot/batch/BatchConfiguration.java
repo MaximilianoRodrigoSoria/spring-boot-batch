@@ -15,7 +15,6 @@ import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.builder.FlatFileItemReaderBuilder;
 import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
@@ -61,7 +60,8 @@ public class BatchConfiguration {
 	public JdbcBatchItemWriter<Persona> writer(DataSource dataSource){
 		return new JdbcBatchItemWriterBuilder<Persona>()
 				.itemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<>())
-				.sql("INSERT INTO persona (nombre, apellido, telefono) VALUES (:nombre, :apellido, :telefono)")
+				.sql("INSERT INTO personas (nombre, apellido, telefono) VALUES (:nombre, :apellido, :telefono)")
+				//.sql("SELECT * FROM personas")
 				.dataSource(dataSource)
 				.build();
 	}
@@ -84,5 +84,5 @@ public class BatchConfiguration {
 				.writer(writer)
 				.build();
 	}
-
+	
 }

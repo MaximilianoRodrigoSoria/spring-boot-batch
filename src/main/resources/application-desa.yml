@@ -1,2 +1,18 @@
 spring:
   message: Este es el profile de desarrollo
+  datasource:
+     driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+     url: jdbc:sqlserver://localhost:1433;instance=SQLEXPRESS;databaseName=facturacion;integratedSecurity=true
+     jpa:
+        hibernate:
+           ddl-auto: update
+        show-sql: true
+        properties:
+           hibernate:
+              format_sql: true
+              dialect: org.hibernate.dialect.SQLServer2012Dialect              
+logging:
+   level:
+      org:
+         hibernate:
+            SQL: debug

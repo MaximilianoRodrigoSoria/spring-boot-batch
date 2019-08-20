@@ -36,7 +36,7 @@ public class JobListener extends JobExecutionListenerSupport {
 			LOG.info("FINALIZÓ EL JOB!! Verifica los resultados:");
 
 			jdbcTemplate
-					.query("SELECT nombre, apellido, telefono FROM persona",
+					.query("SELECT nombre, apellido, telefono FROM Persona P",
 							(rs, row) -> new Persona(rs.getString(1), rs.getString(2), rs.getString(3)))
 					.forEach(persona -> LOG.info("Registro < " + persona + " >"));
 			
