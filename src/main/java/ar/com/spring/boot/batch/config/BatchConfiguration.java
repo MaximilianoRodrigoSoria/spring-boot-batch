@@ -1,4 +1,4 @@
-package ar.com.spring.boot.batch;
+package ar.com.spring.boot.batch.config;
 
 import javax.sql.DataSource;
 
