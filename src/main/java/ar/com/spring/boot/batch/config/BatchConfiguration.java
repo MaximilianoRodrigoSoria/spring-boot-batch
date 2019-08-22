@@ -15,9 +15,14 @@ import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.builder.FlatFileItemReaderBuilder;
 import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.batch.BasicBatchConfigurer;
+import org.springframework.boot.autoconfigure.batch.BatchProperties;
+import org.springframework.boot.autoconfigure.transaction.TransactionManagerCustomizers;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.core.io.ClassPathResource;
 
 import ar.com.spring.boot.batch.listener.JobListener;
@@ -29,9 +34,14 @@ import ar.com.spring.boot.batch.processor.PersonaItemProcessor;
 
 @Configuration
 @EnableBatchProcessing
+@Import({DataSourceConfig.class})
 public class BatchConfiguration {
 	
 
+	
+	
+
+	
 	
 	@Autowired
 	public JobBuilderFactory jobBuilderFactory;
@@ -58,10 +68,10 @@ public class BatchConfiguration {
 	}
 	
 	@Bean
-	public JdbcBatchItemWriter<Persona> writer(DataSource dataSource){
+	public JdbcBatchItemWriter<Persona> writer(@Qualifier("mmssqlDataSource")final DataSource dataSource){
 		return new JdbcBatchItemWriterBuilder<Persona>()
 				.itemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<>())
-				.sql("INSERT INTO persona (nombre, apellido, telefono) VALUES (:nombre, :apellido, :telefono)")
+				.sql("INSERT INTO persona (id, nombre, apellido, telefono) VALUES ((SELECT ISNULL(MAX(id)+1,0) FROM persona WITH(SERIALIZABLE, UPDLOCK)), :nombre, :apellido, :telefono)")
 				.dataSource(dataSource)
 				.build();
 	}

@@ -20,8 +20,7 @@ import ar.com.spring.boot.batch.model.Persona;
 public class JobListener extends JobExecutionListenerSupport {
 
 	private static final Logger LOG = LoggerFactory.getLogger(JobListener.class);
-		@Value("${ar.com}")
-		private String name;
+
 	private JdbcTemplate jdbcTemplate;
 
 	@Autowired
